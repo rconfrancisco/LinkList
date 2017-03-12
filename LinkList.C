@@ -9,7 +9,7 @@ private:
     T data;
     Node_t* next;
     Node_t* prev;
-    Node_t (T value) : data(value), next(0), prev(0) {};
+    explicit Node_t (T value) : data(value), next(0), prev(0) {};
   };
 
   Node_t* head;
@@ -21,13 +21,9 @@ public:
 
   void add(T data) {
     Node_t* newNode = new Node_t(data);
+    if(!newNode) return;
     if(!head) {
       head = newNode;
-      tail = newNode;
-    }
-    else if(!tail) {
-      tail->next    = newNode;
-      newNode->prev = tail;
       tail = newNode;
     }
     else { 
@@ -62,7 +58,7 @@ public:
       prevNode->next = nextNode;
     }
     if(!nextNode) {
-      tail = node->prev;
+      tail = prevNode;;
     }
     else {
       nextNode->prev = prevNode;
